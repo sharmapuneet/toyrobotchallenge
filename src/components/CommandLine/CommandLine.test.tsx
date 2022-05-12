@@ -1,10 +1,9 @@
 import React from 'react';
-import { fireEvent, render, waitFor } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 import { ActionEnum, DirectionEnum } from '../../types';
 import type { TableStateType } from '../../types';
 import { CommandLine } from './CommandLine';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const setup = (tableState: TableStateType): any => {
   const mock = jest.fn();
   const utils = render(<CommandLine onCommand={mock} tableState={tableState} />);
@@ -15,7 +14,6 @@ const setup = (tableState: TableStateType): any => {
   };
 };
 
-// BASE COMMAND
 test('Should not allow a command not in the Enum list', () => {
   const tableState: TableStateType = {
     gridSize: 5,
@@ -30,7 +28,6 @@ test('Should not allow a command not in the Enum list', () => {
   expect(getByText(`Bad command, Please use one of: ${Object.values(allowedCommands).join(', ')}`)).toBeInTheDocument();
 })
 
-// PLACE
 test('Should not allow PLACE unless 4 arguments are in the command', () => {
   const tableState: TableStateType = {
     gridSize: 5,
