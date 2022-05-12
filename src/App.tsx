@@ -1,26 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react'
+import { CommandLine } from './components/CommandLine/CommandLine'
+import { TableTop } from './components/TableTop/TableTop'
+import type { TableStateType } from './types'
 
-function App() {
+const App: React.FC = () => {
+  const initialState: TableStateType = {
+    gridSize: 5,
+    robotIsPlaced: false,
+  }
+  const [tableState, setTableState] = useState(initialState)
+
+  const processCommand = (newTableState: TableStateType): void => {
+    setTableState(newTableState)
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <>
+      <TableTop tableState={tableState} />
+      <CommandLine onCommand={processCommand} tableState={tableState} />
+    </>
+  )
 }
 
-export default App;
+export default App
